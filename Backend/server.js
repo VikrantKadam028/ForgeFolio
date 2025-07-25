@@ -11,7 +11,7 @@ import nodemailer from "nodemailer"; // Import nodemailer for Mongoose email ver
 import fs from 'fs';
 // const serviceAccount = JSON.parse(fs.readFileSync(new URL('./firebase-admin-sdk.json', import.meta.url)));
 const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
-
+serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
 import dotenv from "dotenv";
 dotenv.config();
 
