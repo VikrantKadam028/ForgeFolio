@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inconsolata:wght@200..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: poppins;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9fafb;
+        min-height: 100vh;
+        background-color: black;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        min-height: 100vh;
+        background-color: black;
+      }
+
+      .form-wrapper {
+        width: 100%;
+        max-width: 28rem;
+      }
+
+      .progress-container {
+        margin-bottom: 1.5rem;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+      }
+
+      .progress-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .progress-percent {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .progress-bar {
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 9999px;
+        height: 0.5rem;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        background-color: #111827;
+        height: 0.5rem;
+        border-radius: 9999px;
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .signin-card {
+        background-color: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .icon-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin-bottom: 0.6rem;
+      }
+      .icon-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .signin-step {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .input-container {
+        position: relative;
+      }
+
+      .input-icon {
+        position: absolute;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        pointer-events: none;
+      }
+
+      .signin-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        background-color: white;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        color: #111827;
+        transition: all 0.2s;
+      }
+
+      .signin-input:focus {
+        outline: none; /* Explicitly remove outline */
+        outline-width: 0; /* Ensure no outline width */
+        outline-style: none; /* Ensure no outline style */
+        border-color: transparent;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .signin-input::placeholder {
+        color: #6b7280;
+      }
+
+      .input-with-icon {
+        padding-left: 2.25rem;
+      }
+
+      .input-with-toggle {
+        padding-right: 2.5rem;
+      }
+
+      .check-icon {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+      }
+
+      .toggle-button {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.2s;
+      }
+
+      .toggle-button:hover {
+        color: #6b7280;
+      }
+
+      .signin-button {
+        width: 100%;
+        background-color: #111827;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .signin-button:hover {
+        background-color: #1f2937;
+        transform: translateY(-1px);
+      }
+
+      .signin-button:focus {
+        outline: none; /* Explicitly remove outline */
+        outline-width: 0; /* Ensure no outline width */
+        outline-style: none; /* Ensure no outline style */
+      }
+
+      .signin-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .google-signin-button {
+        background-color: #4285f4; /* Google blue */
+        color: white;
+      }
+
+      .google-signin-button:hover {
+        background-color: #357ae8;
+      }
+
+      .google-icon {
+        width: 18px;
+        height: 18px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+      }
+      .google-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .review-section {
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 0.375rem;
+      }
+
+      .review-header {
+        font-weight: 500;
+        color: #111827;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .review-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .review-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.25rem 0;
+      }
+
+      .review-label {
+        color: #6b7280;
+      }
+
+      .review-value {
+        color: #111827;
+        font-weight: 500;
+      }
+
+      .back-button {
+        margin-top: 1rem;
+        width: 100%;
+        background: none;
+        border: none;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      .back-button:hover {
+        color: #111827;
+      }
+
+      .footer {
+        margin-top: 1.5rem;
+        text-align: center;
+      }
+
+      .footer-text {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .footer-link {
+        color: #111827;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .footer-link:hover {
+        text-decoration: underline;
+      }
+
+      .spinner {
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid white;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Dark mode styles */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #0f172a;
+          color: #f1f5f9;
+        }
+
+        .progress-text {
+          color: #f1f5f9;
+        }
+
+        .progress-percent {
+          color: #94a3b8;
+        }
+
+        .progress-bar {
+          background-color: #1e293b;
+        }
+
+        .progress-fill {
+          background-color: #f1f5f9;
+        }
+
+        .signin-card {
+          background-color: #000000;
+          border-color: #1e293b;
+        }
+
+        .title {
+          color: #f1f5f9;
+        }
+
+        .subtitle {
+          color: #94a3b8;
+        }
+
+        .label {
+          color: #f1f5f9;
+        }
+
+        .signin-input {
+          background-color: #000000;
+          border-color: #1e293b;
+          color: #f1f5f9;
+        }
+
+        .signin-input:focus {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .signin-input::placeholder {
+          color: #94a3b8;
+        }
+
+        .signin-button {
+          background-color: #f1f5f9;
+          color: #1e293b;
+        }
+
+        .signin-button:hover {
+          background-color: #e2e8f0;
+        }
+
+        .google-signin-button {
+          background-color: #4285f4; /* Google blue */
+          color: white;
+        }
+
+        .google-signin-button:hover {
+          background-color: #357ae8;
+        }
+
+        .review-section {
+          background-color: #1e293b;
+          border-color: #1e293b;
+        }
+
+        .review-header {
+          color: #f1f5f9;
+        }
+
+        .review-label {
+          color: #94a3b8;
+        }
+
+        .review-value {
+          color: #f1f5f9;
+        }
+
+        .back-button {
+          color: #94a3b8;
+        }
+
+        .back-button:hover {
+          color: #f1f5f9;
+        }
+
+        .footer-text {
+          color: #94a3b8;
+        }
+
+        .footer-link {
+          color: #f1f5f9;
+        }
+
+        .input-icon,
+        .check-icon,
+        .toggle-button {
+          color: #64748b;
+        }
+
+        .toggle-button:hover {
+          color: #cbd5e1;
+        }
+
+        .spinner {
+          border: 2px solid #1e293b;
+          border-top: 2px solid transparent;
+        }
+      }
+      .alert-success {
+        background-color: #e6ffed;
+        border: 1px solid #34d399;
+        color: #065f46;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: 500;
+        animation: fadeIn 0.4s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include the error/success messages partial -->
+    <%- include('../error.ejs') %>
+
+    <div class="container">
+      <div class="form-wrapper">
+        <div class="progress-container">
+          <div class="progress-header">
+            <span class="progress-text"
+              >Step <span id="currentStep">1</span> of 3</span
+            >
+            <span class="progress-percent"
+              ><span id="progressPercent">33</span>%</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              id="progressFill"
+              style="width: 33%"
+            ></div>
+          </div>
+        </div>
+
+        <div class="signin-card">
+          <div class="header">
+            <div class="icon-container">
+              <img src="/images/fox.png" alt="Fox Logo" />
+            </div>
+            <h1 class="title">Create account</h1>
+            <p class="subtitle" id="stepDescription">
+              Let's start with your basic information
+            </p>
+          </div>
+
+          <!-- Mongoose-based Registration Form -->
+          <form id="signupForm" class="form" action="/register" method="post">
+            <div id="step1" class="signin-step">
+              <div class="field-group">
+                <label for="fullName" class="label">Full Name</label>
+                <div class="input-container">
+                  <input
+                    id="fullName"
+                    type="text"
+                    placeholder="Enter your full name"
+                    class="signin-input"
+                    name="fullName"
+                    required
+                  />
+                  <div id="nameCheck" class="check-icon hidden">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                id="nextStep1"
+                class="signin-button"
+                disabled
+              >
+                Next Step
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div id="step2" class="signin-step hidden">
+              <div class="field-group">
+                <label for="email" class="label">Email</label>
+                <div class="input-container">
+                  <div class="input-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                      ></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    class="signin-input input-with-icon"
+                    name="email"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="password" class="label">Password</label>
+                <div class="input-container">
+                  <div class="input-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="11"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <circle cx="12" cy="16" r="1"></circle>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                  </div>
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Create a password"
+                    class="signin-input input-with-icon input-with-toggle"
+                    name="password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="togglePassword"
+                    class="toggle-button"
+                  >
+                    <svg
+                      id="eyeIcon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                      ></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg
+                      id="eyeOffIcon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="hidden"
+                    >
+                      <path
+                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                      ></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                id="nextStep2"
+                class="signin-button"
+                disabled
+              >
+                Next Step
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div id="step3" class="signin-step hidden">
+              <div class="review-section">
+                <h3 class="review-header">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20,6 9,17 4,12"></polyline>
+                  </svg>
+                  Review Details
+                </h3>
+                <div class="review-details">
+                  <div class="review-item">
+                    <span class="review-label">Name:</span>
+                    <span class="review-value" id="reviewName"></span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-label">Email:</span>
+                    <span class="review-value" id="reviewEmail"></span>
+                  </div>
+                  <div class="review-item">
+                    <span class="review-label">Password:</span>
+                    <span class="review-value">••••••••</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                id="submitButton"
+                name="submit"
+                class="signin-button"
+              >
+                <span id="submitText">Create account</span>
+                <div id="loadingSpinner" class="spinner hidden"></div>
+                <span id="loadingText" class="hidden">Creating account...</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Separator or "OR" section -->
+          <div class="my-4 text-center text-gray-500 text-sm">OR</div>
+
+          <!-- Firebase Google Sign-in Button -->
+          <button
+            type="button"
+            class="signin-button google-signin-button"
+            id="googleSignInButton"
+          >
+            <span class="google-icon">
+              <img
+                src="https://img.icons8.com/color/18/000000/google-logo.png"
+                alt="Google Logo"
+              />
+            </span>
+            Sign up with Google
+          </button>
+
+          <button id="backButton" class="back-button hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5"></path>
+              <path d="m12 19-7-7 7-7"></path>
+            </svg>
+            Back to previous step
+          </button>
+
+          <div class="footer">
+            <p class="footer-text">
+              Already have an account?
+              <a href="/login" class="footer-link">Sign in</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script>
+      // Firebase Configuration (REPLACE WITH YOUR ACTUAL CONFIG)
+      const firebaseConfig = {
+        apiKey: "AIzaSyAz4_NlvqsUjbYGnQ1R7CnWBG8GPZ9WyPI",
+        authDomain: "forgefolio-5febb.firebaseapp.com",
+        projectId: "forgefolio-5febb",
+        storageBucket: "forgefolio-5febb.firebasestorage.app",
+        messagingSenderId: "561145062224",
+        appId: "1:561145062224:web:74959bd2f42aeb56ee4255",
+        measurementId: "G-8DQN6JYFDQ",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const fullNameInput = document.getElementById("fullName");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const nextStep1Btn = document.getElementById("nextStep1");
+        const nextStep2Btn = document.getElementById("nextStep2");
+        const backButton = document.getElementById("backButton");
+        const togglePasswordBtn = document.getElementById("togglePassword");
+        const eyeIcon = document.getElementById("eyeIcon");
+        const eyeOffIcon = document.getElementById("eyeOffIcon");
+
+        const step1El = document.getElementById("step1");
+        const step2El = document.getElementById("step2");
+        const step3El = document.getElementById("step3");
+
+        const currentStepSpan = document.getElementById("currentStep");
+        const progressPercentSpan = document.getElementById("progressPercent");
+        const progressFill = document.getElementById("progressFill");
+        const stepDescription = document.getElementById("stepDescription");
+
+        const googleSignInButton =
+          document.getElementById("googleSignInButton"); // Get the Google button
+
+        let step = 1;
+
+        const updateProgressBar = () => {
+          let percent = 0;
+          let description = "";
+          if (step === 1) {
+            percent = 33;
+            description = "Let's start with your basic information";
+          } else if (step === 2) {
+            percent = 66;
+            description = "Enter your email and a secure password";
+          } else if (step === 3) {
+            percent = 100;
+            description = "Review your details before creating the account";
+          }
+          currentStepSpan.textContent = step;
+          progressPercentSpan.textContent = percent;
+          progressFill.style.width = `${percent}%`;
+          stepDescription.textContent = description;
+        };
+
+        function updateUI() {
+          step1El.classList.toggle("hidden", step !== 1);
+          step2El.classList.toggle("hidden", step !== 2);
+          step3El.classList.toggle("hidden", step !== 3);
+          backButton.classList.toggle("hidden", step === 1);
+          updateProgressBar();
+        }
+
+        fullNameInput.addEventListener("input", () => {
+          nextStep1Btn.disabled = !fullNameInput.value.trim();
+        });
+
+        [emailInput, passwordInput].forEach((input) => {
+          input.addEventListener("input", () => {
+            nextStep2Btn.disabled =
+              !emailInput.value.trim() || !passwordInput.value.trim();
+          });
+        });
+
+        togglePasswordBtn.addEventListener("click", () => {
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordInput.setAttribute("type", type);
+          eyeIcon.classList.toggle("hidden");
+          eyeOffIcon.classList.toggle("hidden");
+        });
+
+        nextStep1Btn.addEventListener("click", () => {
+          step = 2;
+          updateUI();
+        });
+
+        nextStep2Btn.addEventListener("click", () => {
+          document.getElementById("reviewName").textContent =
+            fullNameInput.value;
+          document.getElementById("reviewEmail").textContent = emailInput.value;
+          step = 3;
+          updateUI();
+        });
+
+        backButton.addEventListener("click", () => {
+          step = step - 1;
+          updateUI();
+        });
+
+        const signupForm = document.getElementById("signupForm");
+        const submitButton = document.getElementById("submitButton");
+        const submitText = document.getElementById("submitText");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const loadingText = document.getElementById("loadingText");
+
+        // Mongoose-based registration form submission
+        signupForm.addEventListener("submit", (event) => {
+          // This form submission goes to the server, which handles Mongoose user creation.
+          // Client-side loading state is applied here.
+          submitButton.disabled = true;
+          submitText.classList.add("hidden");
+          loadingSpinner.classList.remove("hidden");
+          loadingText.classList.remove("hidden");
+        });
+
+        // Firebase Google Sign-in/Sign-up
+        googleSignInButton.addEventListener("click", async () => {
+          // Apply loading state to the Google button or a general loading indicator
+          googleSignInButton.disabled = true; // Disable the Google button
+          const originalGoogleButtonContent = googleSignInButton.innerHTML;
+          googleSignInButton.innerHTML = `<div class="spinner"></div> Signing in...`; // Show spinner
+
+          try {
+            const result = await auth.signInWithPopup(googleProvider);
+            const idToken = await result.user.getIdToken();
+
+            // Send ID token to your server for Mongoose user creation/login and session management
+            const response = await fetch("/firebase-auth", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ idToken }),
+            });
+
+            if (response.ok) {
+              // Server successfully processed and logged in the user via Passport
+              window.location.href = "/dashboard"; // Redirect to dashboard
+            } else {
+              const errorData = await response.text(); // Get error message from server
+              throw new Error(
+                errorData || "Server error during Firebase authentication."
+              );
+            }
+          } catch (error) {
+            console.error("Firebase Google Sign-in Error:", error);
+            const toastContainer = document.getElementById("toastContainer");
+            if (toastContainer) {
+              const errorMessage =
+                error.message ||
+                "An unknown error occurred during Google sign-in.";
+              const errorToast = `
+                        <div class="toast error">
+                            <div class="toast-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.174 3.35 1.94 3.35h14.728c1.766 0 2.806-1.85 1.94-3.35L13.147 3.65a1.865 1.865 0 00-3.294 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                            </div>
+                            <div class="toast-content">
+                                <div class="toast-title">Google Sign-in Error!</div>
+                                <div class="toast-message">${errorMessage}</div>
+                            </div>
+                            <button type="button" class="toast-close-button" onclick="this.closest('.toast').remove()">
+                                &times;
+                            </button>
+                        </div>
+                    `;
+              toastContainer.insertAdjacentHTML("beforeend", errorToast);
+            }
+          } finally {
+            // Reset Google button state
+            googleSignInButton.disabled = false;
+            googleSignInButton.innerHTML = originalGoogleButtonContent;
+            // Also ensure the main form's submit button is reset if it was affected
+            submitButton.disabled = false;
+            submitText.classList.remove("hidden");
+            loadingSpinner.classList.add("hidden");
+            loadingText.classList.add("hidden");
+          }
+        });
+
+        updateUI();
+      });
+    </script>
+  </body>
+</html>

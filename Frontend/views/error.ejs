@@ -1,0 +1,168 @@
+<style>
+    /* Container for all toast messages */
+    .toast-container {
+        position: fixed; /* Fixed position relative to the viewport */
+        top: 1rem; /* 16px from the top */
+        right: 1rem; /* 16px from the right */
+        z-index: 50; /* Ensure it's above other content */
+        display: flex;
+        flex-direction: column; /* Stack toasts vertically */
+        gap: 0.5rem; /* Space between toasts */
+        max-width: 320px; /* Maximum width for toasts */
+        width: 100%; /* Take full width up to max-width */
+    }
+
+    /* Individual toast message styling */
+    .toast {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem; /* Padding inside the toast */
+        border-radius: 0.5rem; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        color: white; /* Default text color for toasts */
+        font-size: 0.875rem; /* Text size */
+        line-height: 1.25rem; /* Line height */
+        position: relative;
+        overflow: hidden; /* Ensures content stays within bounds */
+        /* Animation for toast appearance */
+        animation: slideInFromRight 0.3s ease-out forwards;
+    }
+
+    /* Specific background colors for different toast types */
+    .toast.success {
+        background-color: #10B981; /* Tailwind green-500 */
+    }
+    .toast.error {
+        background-color: #EF4444; /* Tailwind red-500 */
+    }
+    .toast.info {
+        background-color: #3B82F6; /* Tailwind blue-500 */
+    }
+    .toast.warning {
+        background-color: #F59E0B; /* Tailwind yellow-500 */
+        color: #1F2937; /* Dark text for better contrast on yellow */
+    }
+
+    /* Styling for the icon within the toast */
+    .toast-icon {
+        flex-shrink: 0; /* Prevent icon from shrinking */
+        width: 1.25rem; /* Icon width */
+        height: 1.25rem; /* Icon height */
+        margin-right: 0.75rem; /* Space between icon and text */
+    }
+
+    /* Styling for the text content area of the toast */
+    .toast-content {
+        flex-grow: 1; /* Allow content to take available space */
+    }
+
+    /* Styling for the toast title */
+    .toast-title {
+        font-weight: 600; /* Semi-bold font for title */
+        margin-bottom: 0.25rem; /* Space below title */
+    }
+
+    /* Styling for the toast message */
+    .toast-message {
+        font-weight: 400; /* Normal font weight */
+        opacity: 0.9; /* Slightly transparent for message */
+    }
+
+    /* Styling for the close button */
+    .toast-close-button {
+        background: none; /* No background */
+        border: none; /* No border */
+        color: white; /* White text color */
+        cursor: pointer; /* Pointer cursor on hover */
+        padding: 0.25rem; /* Padding for click area */
+        margin-left: 0.75rem; /* Space to the left of the button */
+        font-size: 1rem; /* Font size for the 'x' */
+        line-height: 1; /* Ensure 'x' is vertically centered */
+        opacity: 0.7; /* Slightly transparent */
+        transition: opacity 0.2s; /* Smooth transition for opacity */
+    }
+
+    /* Hover effect for the close button */
+    .toast-close-button:hover {
+        opacity: 1; /* Fully opaque on hover */
+    }
+
+    /* Dark mode styles, applied when the user's system prefers dark mode */
+    @media (prefers-color-scheme: dark) {
+        .toast.warning {
+            background-color: #D97706; /* Darker yellow for warning in dark mode */
+            color: white; /* Ensure text is white for better contrast */
+        }
+    }
+
+    /* Keyframe animation for toast sliding in from the right */
+    @keyframes slideInFromRight {
+        from {
+            transform: translateX(100%); /* Start off-screen to the right */
+            opacity: 0; /* Start fully transparent */
+        }
+        to {
+            transform: translateX(0); /* End at its natural position */
+            opacity: 1; /* End fully opaque */
+        }
+    }
+</style>
+<div class="toast-container" id="toastContainer">
+    <!-- Display Success Message if available -->
+    <% if (success_msg && success_msg.length > 0) { %>
+        <div class="toast success">
+            <div class="toast-icon">
+                <!-- Success Icon (Checkmark in Circle) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Success!</div>
+                <div class="toast-message"><%= success_msg %></div>
+            </div>
+            <!-- Close button with inline JavaScript to remove the parent toast -->
+            <button type="button" class="toast-close-button" onclick="this.closest('.toast').remove()">
+                &times;
+            </button>
+        </div>
+    <% } %>
+
+    <!-- Display Error Message (from error_msg flash) if available -->
+    <% if (error_msg && error_msg.length > 0) { %>
+        <div class="toast error">
+            <div class="toast-icon">
+                <!-- Error Icon (Exclamation Triangle) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.174 3.35 1.94 3.35h14.728c1.766 0 2.806-1.85 1.94-3.35L13.147 3.65a1.865 1.865 0 00-3.294 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Error!</div>
+                <div class="toast-message"><%= error_msg %></div>
+            </div>
+            <button type="button" class="toast-close-button" onclick="this.closest('.toast').remove()">
+                &times;
+            </button>
+        </div>
+    <% } %>
+
+    <!-- Display Generic Error Message (from error flash, typically from Passport) if available -->
+    <% if (error && error.length > 0) { %>
+        <div class="toast error">
+            <div class="toast-icon">
+                <!-- Error Icon (Exclamation Triangle) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.174 3.35 1.94 3.35h14.728c1.766 0 2.806-1.85 1.94-3.35L13.147 3.65a1.865 1.865 0 00-3.294 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">Error!</div>
+                <div class="toast-message"><%= error %></div>
+            </div>
+            <button type="button" class="toast-close-button" onclick="this.closest('.toast').remove()">
+                &times;
+            </button>
+        </div>
+    <% } %>
+</div>
