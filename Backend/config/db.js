@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const db = mongoose.connect("mongodb+srv://vikrantkk2889:clZRES2qrls0b4n9@cluster0.yqonlou.mongodb.net/",{
+const db = mongoose.connect(process.env.MONGODB_URI,{
     dbname:"ForgeFolio"
 }).then(()=>{
     console.log("Mongodb connected!");
