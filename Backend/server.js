@@ -8,7 +8,10 @@ import passport from "passport";
 import flash from "connect-flash";
 import admin from "firebase-admin"; // Import Firebase Admin SDK
 import nodemailer from "nodemailer"; // Import nodemailer for Mongoose email verification (optional)
-import serviceAccount from "./firebase-admin-sdk.json" assert { type: "json" };
+import admin from 'firebase-admin';
+import fs from 'fs';
+const serviceAccount = JSON.parse(fs.readFileSync(new URL('./firebase-admin-sdk.json', import.meta.url)));
+
 import dotenv from "dotenv";
 dotenv.config();
 
