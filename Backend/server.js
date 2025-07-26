@@ -9,11 +9,12 @@ import flash from "connect-flash";
 import admin from "firebase-admin"; // Import Firebase Admin SDK
 import nodemailer from "nodemailer"; // Import nodemailer for Mongoose email verification (optional)
 import fs from 'fs';
+import dotenv from "dotenv";
+dotenv.config();
 // const serviceAccount = JSON.parse(fs.readFileSync(new URL('./firebase-admin-sdk.json', import.meta.url)));
 const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
 serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
-import dotenv from "dotenv";
-dotenv.config();
+
 
 try {
   admin.initializeApp({
@@ -38,7 +39,7 @@ const __dirname = path.dirname(__filename);
 // --- Express Configuration ---
 app.set("views", path.join(__dirname, "../Frontend/views"));
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "../Public")));
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
